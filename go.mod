@@ -8,6 +8,7 @@ require (
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/golang/protobuf v1.3.2
 	github.com/gorilla/websocket v1.4.1
+	github.com/json-iterator/go v1.1.8
 	github.com/micro/go-micro v1.18.0
 	github.com/micro/protobuf v0.0.0-20180321161605-ebd3be6d4fdb
 	github.com/streadway/amqp v0.0.0-20200108173154-1c71cc93ed71

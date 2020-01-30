@@ -49,22 +49,8 @@ func ws(w http.ResponseWriter, r *http.Request) {
 		w.Write(bytes)
 	}
 
-	conn, err := upgrader.Upgrade(w, r, nil)
-	if err != nil {
-		logger.Sugar.Error(err)
-		return
-	}
-
-	// 断开之前的连接
-	preCtx := load(deviceId)
-	if preCtx != nil {
-		preCtx.DeviceId = -1
-	}
-	ctx := NewWSConnContext(conn, appId, deviceId, userId)
-	store(deviceId, ctx)
-
 	// 调用logic  rpc
-	_, err = rpc_cli.LogicIntClient.SignIn(contextcli.ContextWithRequestId(context.TODO(), requestId), &pb.SignInReq{
+	_, err := rpc_cli.LogicIntClient.SignIn(contextcli.ContextWithRequestId(context.TODO(), requestId), &pb.SignInReq{
 		AppId:    appId,
 		UserId:   userId,
 		DeviceId: deviceId,
@@ -79,6 +65,19 @@ func ws(w http.ResponseWriter, r *http.Request) {
 		}
 		w.Write(bytes)
 	}
+	conn, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		logger.Sugar.Error(err)
+		return
+	}
+
+	// 断开之前的连接
+	preCtx := load(deviceId)
+	if preCtx != nil {
+		preCtx.DeviceId = -1
+	}
+	ctx := NewWSConnContext(conn, appId, deviceId, userId)
+	store(deviceId, ctx)
 	// test 投递消息
 
 	ctx.DoConn()

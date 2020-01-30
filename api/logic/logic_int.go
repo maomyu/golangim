@@ -3,41 +3,18 @@ package logic
 import (
 	"context"
 
+	"github.com/yuwe1/golangim/internal/inlogic/service"
+	"github.com/yuwe1/golangim/pkg/logger"
 	"github.com/yuwe1/golangim/pkg/pb"
 )
 
 type LogicIntServer struct{}
 
 // SignIn 设备登录
-func (*LogicIntServer) SignIn(ctx context.Context, req *pb.SignInReq) (*pb.SignInResp, error) {
 
-	// _, _ = rpc_cli.ConnIntClient.DeliverMessage(contextcli.ContextWithRequestId(context.TODO(), 1), &pb.DeliverMessageReq{
-	// 	DeviceId: 12,
-	// 	Message: &pb.Message{
-	// 		Message: &pb.MessageItem{
-	// 			RequestId:      1,
-	// 			SenderType:     2,
-	// 			SenderId:       1,
-	// 			SenderDeviceId: 9,
-	// 			ReceiverType:   1,
-	// 			ReceiverId:     22,
-	// 			MessageBody: &pb.MessageBody{
-	// 				MessageType: 1,
-	// 				MessageContent: &pb.MessageContent{
-	// 					Content: &pb.MessageContent_Text{
-	// 						Text: &pb.Text{
-	// 							Text: "你好",
-	// 						},
-	// 					},
-	// 				},
-	// 			},
-	// 			Seq:      1,
-	// 			SendTime: time.Now().UnixNano(),
-	// 			Status:   1,
-	// 		},
-	// 	},
-	// })
-	return &pb.SignInResp{}, nil
+func (*LogicIntServer) SignIn(ctx context.Context, req *pb.SignInReq) (*pb.SignInResp, error) {
+	logger.Sugar.Info(req.UserId, "的设备", req.DeviceId, "登录设备")
+	return &pb.SignInResp{}, service.LogicService.SignIn(ctx, req)
 }
 
 // Sync 设备同步消息

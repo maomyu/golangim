@@ -19,6 +19,5 @@ func main() {
 		wsconn.StartRPCServer()
 	}()
 	rpc_cli.InitlogicIntClient(config.GetWsconfConfig().GetLogicRPCAddrs())
-	// rpc_cli.InitConnIntClient(config.GetLogicConfig().GetConnRpcAddrs())
 	ws_conn.StartWSServer(config.GetWsconfConfig().GetWsListenAddr())
 }
