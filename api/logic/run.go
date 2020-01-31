@@ -25,5 +25,18 @@ func StartRpcServer() {
 			panic(err)
 		}
 	}()
-
+	//
+	go func() {
+		defer util.RecoverPanic()
+		serListen, err := net.Listen("tcp", config.GetLogicConfig().GetServerRpcExtListenAddr())
+		if err != nil {
+			panic(err)
+		}
+		serServer := grpc.NewServer()
+		pb.RegisterLogicServerExtServer(serServer, &LogicServerExt{})
+		err = serServer.Serve(serListen)
+		if err != nil {
+			panic(err)
+		}
+	}()
 }
