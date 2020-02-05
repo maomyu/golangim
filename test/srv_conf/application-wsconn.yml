@@ -1,0 +1,6 @@
+app:
+  wsconn:
+    wsListenAddr: :8081
+    rpcListenAddr: :60001
+    localAddr: 127.0.0.1
+    logicRPCAddrs: 127.0.0.1:50000

@@ -4,8 +4,12 @@
 package pb
 
 import (
+	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -138,30 +142,606 @@ func (m *SendMessageResp) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_SendMessageResp proto.InternalMessageInfo
 
+type RegisterDeviceReq struct {
+	AppId                int64    `protobuf:"varint,1,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
+	Type                 int32    `protobuf:"varint,2,opt,name=type,proto3" json:"type,omitempty"`
+	Brand                string   `protobuf:"bytes,3,opt,name=brand,proto3" json:"brand,omitempty"`
+	Model                string   `protobuf:"bytes,4,opt,name=model,proto3" json:"model,omitempty"`
+	SystemVersion        string   `protobuf:"bytes,5,opt,name=system_version,json=systemVersion,proto3" json:"system_version,omitempty"`
+	SdkVersion           string   `protobuf:"bytes,6,opt,name=sdk_version,json=sdkVersion,proto3" json:"sdk_version,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RegisterDeviceReq) Reset()         { *m = RegisterDeviceReq{} }
+func (m *RegisterDeviceReq) String() string { return proto.CompactTextString(m) }
+func (*RegisterDeviceReq) ProtoMessage()    {}
+func (*RegisterDeviceReq) Descriptor() ([]byte, []int) {
+	return fileDescriptor_68d93363781e4ea5, []int{2}
+}
+
+func (m *RegisterDeviceReq) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RegisterDeviceReq.Unmarshal(m, b)
+}
+func (m *RegisterDeviceReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RegisterDeviceReq.Marshal(b, m, deterministic)
+}
+func (m *RegisterDeviceReq) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RegisterDeviceReq.Merge(m, src)
+}
+func (m *RegisterDeviceReq) XXX_Size() int {
+	return xxx_messageInfo_RegisterDeviceReq.Size(m)
+}
+func (m *RegisterDeviceReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_RegisterDeviceReq.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RegisterDeviceReq proto.InternalMessageInfo
+
+func (m *RegisterDeviceReq) GetAppId() int64 {
+	if m != nil {
+		return m.AppId
+	}
+	return 0
+}
+
+func (m *RegisterDeviceReq) GetType() int32 {
+	if m != nil {
+		return m.Type
+	}
+	return 0
+}
+
+func (m *RegisterDeviceReq) GetBrand() string {
+	if m != nil {
+		return m.Brand
+	}
+	return ""
+}
+
+func (m *RegisterDeviceReq) GetModel() string {
+	if m != nil {
+		return m.Model
+	}
+	return ""
+}
+
+func (m *RegisterDeviceReq) GetSystemVersion() string {
+	if m != nil {
+		return m.SystemVersion
+	}
+	return ""
+}
+
+func (m *RegisterDeviceReq) GetSdkVersion() string {
+	if m != nil {
+		return m.SdkVersion
+	}
+	return ""
+}
+
+type RegisterDeviceResp struct {
+	DeviceId             int64    `protobuf:"varint,1,opt,name=device_id,json=deviceId,proto3" json:"device_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RegisterDeviceResp) Reset()         { *m = RegisterDeviceResp{} }
+func (m *RegisterDeviceResp) String() string { return proto.CompactTextString(m) }
+func (*RegisterDeviceResp) ProtoMessage()    {}
+func (*RegisterDeviceResp) Descriptor() ([]byte, []int) {
+	return fileDescriptor_68d93363781e4ea5, []int{3}
+}
+
+func (m *RegisterDeviceResp) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RegisterDeviceResp.Unmarshal(m, b)
+}
+func (m *RegisterDeviceResp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RegisterDeviceResp.Marshal(b, m, deterministic)
+}
+func (m *RegisterDeviceResp) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RegisterDeviceResp.Merge(m, src)
+}
+func (m *RegisterDeviceResp) XXX_Size() int {
+	return xxx_messageInfo_RegisterDeviceResp.Size(m)
+}
+func (m *RegisterDeviceResp) XXX_DiscardUnknown() {
+	xxx_messageInfo_RegisterDeviceResp.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RegisterDeviceResp proto.InternalMessageInfo
+
+func (m *RegisterDeviceResp) GetDeviceId() int64 {
+	if m != nil {
+		return m.DeviceId
+	}
+	return 0
+}
+
+type User struct {
+	UserId               int64    `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Nickname             string   `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"`
+	Sex                  int32    `protobuf:"varint,3,opt,name=sex,proto3" json:"sex,omitempty"`
+	AvatarUrl            string   `protobuf:"bytes,4,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
+	Extra                string   `protobuf:"bytes,5,opt,name=extra,proto3" json:"extra,omitempty"`
+	CreateTime           int64    `protobuf:"varint,6,opt,name=create_time,json=createTime,proto3" json:"create_time,omitempty"`
+	UpdateTime           int64    `protobuf:"varint,7,opt,name=update_time,json=updateTime,proto3" json:"update_time,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *User) Reset()         { *m = User{} }
+func (m *User) String() string { return proto.CompactTextString(m) }
+func (*User) ProtoMessage()    {}
+func (*User) Descriptor() ([]byte, []int) {
+	return fileDescriptor_68d93363781e4ea5, []int{4}
+}
+
+func (m *User) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_User.Unmarshal(m, b)
+}
+func (m *User) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_User.Marshal(b, m, deterministic)
+}
+func (m *User) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_User.Merge(m, src)
+}
+func (m *User) XXX_Size() int {
+	return xxx_messageInfo_User.Size(m)
+}
+func (m *User) XXX_DiscardUnknown() {
+	xxx_messageInfo_User.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_User proto.InternalMessageInfo
+
+func (m *User) GetUserId() int64 {
+	if m != nil {
+		return m.UserId
+	}
+	return 0
+}
+
+func (m *User) GetNickname() string {
+	if m != nil {
+		return m.Nickname
+	}
+	return ""
+}
+
+func (m *User) GetSex() int32 {
+	if m != nil {
+		return m.Sex
+	}
+	return 0
+}
+
+func (m *User) GetAvatarUrl() string {
+	if m != nil {
+		return m.AvatarUrl
+	}
+	return ""
+}
+
+func (m *User) GetExtra() string {
+	if m != nil {
+		return m.Extra
+	}
+	return ""
+}
+
+func (m *User) GetCreateTime() int64 {
+	if m != nil {
+		return m.CreateTime
+	}
+	return 0
+}
+
+func (m *User) GetUpdateTime() int64 {
+	if m != nil {
+		return m.UpdateTime
+	}
+	return 0
+}
+
+type AddUserReq struct {
+	User                 *User    `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AddUserReq) Reset()         { *m = AddUserReq{} }
+func (m *AddUserReq) String() string { return proto.CompactTextString(m) }
+func (*AddUserReq) ProtoMessage()    {}
+func (*AddUserReq) Descriptor() ([]byte, []int) {
+	return fileDescriptor_68d93363781e4ea5, []int{5}
+}
+
+func (m *AddUserReq) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AddUserReq.Unmarshal(m, b)
+}
+func (m *AddUserReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AddUserReq.Marshal(b, m, deterministic)
+}
+func (m *AddUserReq) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AddUserReq.Merge(m, src)
+}
+func (m *AddUserReq) XXX_Size() int {
+	return xxx_messageInfo_AddUserReq.Size(m)
+}
+func (m *AddUserReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_AddUserReq.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AddUserReq proto.InternalMessageInfo
+
+func (m *AddUserReq) GetUser() *User {
+	if m != nil {
+		return m.User
+	}
+	return nil
+}
+
+type AddUserResp struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AddUserResp) Reset()         { *m = AddUserResp{} }
+func (m *AddUserResp) String() string { return proto.CompactTextString(m) }
+func (*AddUserResp) ProtoMessage()    {}
+func (*AddUserResp) Descriptor() ([]byte, []int) {
+	return fileDescriptor_68d93363781e4ea5, []int{6}
+}
+
+func (m *AddUserResp) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AddUserResp.Unmarshal(m, b)
+}
+func (m *AddUserResp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AddUserResp.Marshal(b, m, deterministic)
+}
+func (m *AddUserResp) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AddUserResp.Merge(m, src)
+}
+func (m *AddUserResp) XXX_Size() int {
+	return xxx_messageInfo_AddUserResp.Size(m)
+}
+func (m *AddUserResp) XXX_DiscardUnknown() {
+	xxx_messageInfo_AddUserResp.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AddUserResp proto.InternalMessageInfo
+
+type GetUserReq struct {
+	UserId               int64    `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetUserReq) Reset()         { *m = GetUserReq{} }
+func (m *GetUserReq) String() string { return proto.CompactTextString(m) }
+func (*GetUserReq) ProtoMessage()    {}
+func (*GetUserReq) Descriptor() ([]byte, []int) {
+	return fileDescriptor_68d93363781e4ea5, []int{7}
+}
+
+func (m *GetUserReq) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetUserReq.Unmarshal(m, b)
+}
+func (m *GetUserReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetUserReq.Marshal(b, m, deterministic)
+}
+func (m *GetUserReq) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetUserReq.Merge(m, src)
+}
+func (m *GetUserReq) XXX_Size() int {
+	return xxx_messageInfo_GetUserReq.Size(m)
+}
+func (m *GetUserReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetUserReq.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetUserReq proto.InternalMessageInfo
+
+func (m *GetUserReq) GetUserId() int64 {
+	if m != nil {
+		return m.UserId
+	}
+	return 0
+}
+
+type GetUserResp struct {
+	User                 *User    `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetUserResp) Reset()         { *m = GetUserResp{} }
+func (m *GetUserResp) String() string { return proto.CompactTextString(m) }
+func (*GetUserResp) ProtoMessage()    {}
+func (*GetUserResp) Descriptor() ([]byte, []int) {
+	return fileDescriptor_68d93363781e4ea5, []int{8}
+}
+
+func (m *GetUserResp) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetUserResp.Unmarshal(m, b)
+}
+func (m *GetUserResp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetUserResp.Marshal(b, m, deterministic)
+}
+func (m *GetUserResp) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetUserResp.Merge(m, src)
+}
+func (m *GetUserResp) XXX_Size() int {
+	return xxx_messageInfo_GetUserResp.Size(m)
+}
+func (m *GetUserResp) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetUserResp.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetUserResp proto.InternalMessageInfo
+
+func (m *GetUserResp) GetUser() *User {
+	if m != nil {
+		return m.User
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*SendMessageReq)(nil), "pb.SendMessageReq")
 	proto.RegisterType((*SendMessageResp)(nil), "pb.SendMessageResp")
+	proto.RegisterType((*RegisterDeviceReq)(nil), "pb.RegisterDeviceReq")
+	proto.RegisterType((*RegisterDeviceResp)(nil), "pb.RegisterDeviceResp")
+	proto.RegisterType((*User)(nil), "pb.User")
+	proto.RegisterType((*AddUserReq)(nil), "pb.AddUserReq")
+	proto.RegisterType((*AddUserResp)(nil), "pb.AddUserResp")
+	proto.RegisterType((*GetUserReq)(nil), "pb.GetUserReq")
+	proto.RegisterType((*GetUserResp)(nil), "pb.GetUserResp")
 }
 
 func init() { proto.RegisterFile("logic.client.proto", fileDescriptor_68d93363781e4ea5) }
 
 var fileDescriptor_68d93363781e4ea5 = []byte{
-	// 259 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x54, 0x90, 0xcd, 0x4e, 0xc3, 0x30,
-	0x10, 0x84, 0xe5, 0x04, 0x4a, 0xb3, 0xe9, 0x0f, 0xf8, 0x64, 0x81, 0x00, 0xab, 0x27, 0x9f, 0x72,
-	0x08, 0xe2, 0x05, 0xb8, 0xf5, 0x80, 0x84, 0x4c, 0x39, 0x47, 0x24, 0x5e, 0x55, 0x96, 0x9a, 0xd8,
-	0x64, 0x0d, 0x52, 0x9e, 0x84, 0xd7, 0x45, 0xf9, 0x29, 0xd0, 0xe3, 0x7c, 0x63, 0x6b, 0x66, 0x07,
-	0xf8, 0xc1, 0xed, 0x6d, 0x95, 0x55, 0x07, 0x8b, 0x4d, 0xc8, 0x7c, 0xeb, 0x82, 0xe3, 0x91, 0x2f,
-	0xaf, 0x97, 0x35, 0x12, 0xbd, 0xef, 0x71, 0x44, 0x9b, 0xef, 0x08, 0x56, 0xaf, 0xd8, 0x98, 0xe7,
-	0x91, 0x6a, 0xfc, 0xe0, 0xb7, 0x00, 0xd3, 0x9b, 0xc2, 0x1a, 0xc1, 0x24, 0x53, 0x89, 0x4e, 0x26,
-	0xb2, 0x35, 0xfc, 0x11, 0x96, 0x2d, 0x56, 0x68, 0xbf, 0xb0, 0x2d, 0x42, 0xe7, 0x51, 0x44, 0x92,
-	0xa9, 0x55, 0x7e, 0x99, 0xf9, 0x32, 0xd3, 0x93, 0xb1, 0xeb, 0x3c, 0xea, 0x45, 0xfb, 0x4f, 0xf1,
-	0x7b, 0x48, 0x7f, 0xbf, 0x59, 0x23, 0x62, 0xc9, 0x54, 0xac, 0xe1, 0x88, 0xb6, 0x86, 0xdf, 0x41,
-	0x1a, 0x5c, 0xf1, 0x49, 0x83, 0x4f, 0xe2, 0x4c, 0xc6, 0x2a, 0xd6, 0x49, 0x70, 0x6f, 0xd4, 0xdb,
-	0xc4, 0x73, 0x58, 0x1c, 0x6b, 0x95, 0xce, 0x74, 0xe2, 0x5c, 0x32, 0x95, 0xe6, 0xeb, 0x3e, 0x76,
-	0x2a, 0xff, 0xe4, 0x4c, 0xa7, 0xd3, 0xfa, 0x4f, 0xf0, 0x1b, 0x48, 0x08, 0x1b, 0x53, 0x04, 0x5b,
-	0xa3, 0x98, 0x0d, 0x91, 0xf3, 0x1e, 0xec, 0x6c, 0x8d, 0xfd, 0x9d, 0x96, 0x0a, 0x8f, 0x2d, 0x59,
-	0x0a, 0xe2, 0x42, 0x32, 0x35, 0xd7, 0x89, 0xa5, 0x97, 0x11, 0x6c, 0xae, 0x60, 0x7d, 0x32, 0x0c,
-	0xf9, 0x72, 0x36, 0x6c, 0xf6, 0xf0, 0x13, 0x00, 0x00, 0xff, 0xff, 0x47, 0xf2, 0xc1, 0xd7, 0x5c,
-	0x01, 0x00, 0x00,
+	// 589 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x94, 0xeb, 0x6a, 0xdb, 0x30,
+	0x14, 0xc7, 0x71, 0x73, 0xf5, 0x71, 0x93, 0xb6, 0xda, 0xba, 0x99, 0xec, 0x52, 0x63, 0x28, 0x98,
+	0x0e, 0x02, 0xcb, 0xd8, 0xbe, 0x8e, 0x5d, 0x60, 0x04, 0x36, 0x18, 0x5a, 0xbb, 0xaf, 0xc6, 0xb1,
+	0x0e, 0x41, 0x24, 0xb6, 0x35, 0x49, 0x09, 0xcd, 0x93, 0xec, 0x3d, 0xf6, 0x0c, 0x7b, 0x8e, 0x3d,
+	0xcb, 0x90, 0xe4, 0x38, 0x49, 0x77, 0xf9, 0xe6, 0xf3, 0x3b, 0x7f, 0xa3, 0xf3, 0xff, 0x1f, 0xd9,
+	0x40, 0x96, 0xd5, 0x9c, 0xe7, 0xe3, 0x7c, 0xc9, 0xb1, 0xd4, 0x63, 0x21, 0x2b, 0x5d, 0x91, 0x23,
+	0x31, 0x1b, 0x0d, 0x0a, 0x54, 0x2a, 0x9b, 0xa3, 0x43, 0xf1, 0xf7, 0x23, 0x18, 0x7e, 0xc1, 0x92,
+	0x7d, 0x72, 0x94, 0xe2, 0x37, 0xf2, 0x04, 0xa0, 0xd6, 0xa4, 0x9c, 0x85, 0x5e, 0xe4, 0x25, 0x3e,
+	0xf5, 0x6b, 0x32, 0x65, 0xe4, 0x25, 0x0c, 0x24, 0xe6, 0xc8, 0xd7, 0x28, 0x53, 0xbd, 0x11, 0x18,
+	0x1e, 0x45, 0x5e, 0x32, 0x9c, 0x9c, 0x8e, 0xc5, 0x6c, 0x4c, 0xeb, 0xc6, 0xf5, 0x46, 0x20, 0x3d,
+	0x96, 0x7b, 0x15, 0xb9, 0x80, 0xa0, 0x79, 0x8d, 0xb3, 0xb0, 0x15, 0x79, 0x49, 0x8b, 0xc2, 0x16,
+	0x4d, 0x19, 0x79, 0x0a, 0x81, 0xae, 0xd2, 0x95, 0xb2, 0x7d, 0x15, 0xb6, 0xa3, 0x56, 0xd2, 0xa2,
+	0xbe, 0xae, 0x6e, 0x94, 0x69, 0x2b, 0x32, 0x81, 0xe3, 0xed, 0x58, 0xb3, 0x8a, 0x6d, 0xc2, 0x4e,
+	0xe4, 0x25, 0xc1, 0xe4, 0xc4, 0x1c, 0x5b, 0x0f, 0xff, 0xb6, 0x62, 0x1b, 0x1a, 0x14, 0xbb, 0x82,
+	0x3c, 0x02, 0x5f, 0x61, 0xc9, 0x52, 0xcd, 0x0b, 0x0c, 0xbb, 0xf6, 0xc8, 0xbe, 0x01, 0xd7, 0xbc,
+	0x40, 0xe3, 0x93, 0xab, 0x54, 0xa0, 0x54, 0x5c, 0xe9, 0xb0, 0x17, 0x79, 0x49, 0x9f, 0xfa, 0x5c,
+	0x7d, 0x76, 0x20, 0x3e, 0x83, 0x93, 0x83, 0x60, 0x94, 0x88, 0x7f, 0x78, 0x70, 0x46, 0x71, 0xce,
+	0x95, 0x46, 0xf9, 0x1e, 0xd7, 0x3c, 0xb7, 0x79, 0x9d, 0x43, 0x37, 0x13, 0x62, 0x9b, 0x55, 0x8b,
+	0x76, 0x32, 0x21, 0xa6, 0x8c, 0x10, 0x68, 0x37, 0xf1, 0x74, 0xa8, 0x7d, 0x26, 0xf7, 0xa1, 0x33,
+	0x93, 0x59, 0xe9, 0xec, 0xfb, 0xd4, 0x15, 0x86, 0x16, 0x15, 0xc3, 0x65, 0xd8, 0x76, 0xd4, 0x16,
+	0xe4, 0x12, 0x86, 0x6a, 0xa3, 0x34, 0x16, 0xe9, 0xda, 0x4c, 0x54, 0x95, 0xd6, 0xb1, 0x4f, 0x07,
+	0x8e, 0x7e, 0x75, 0xd0, 0xe4, 0xaa, 0xd8, 0xa2, 0xd1, 0x74, 0xad, 0x06, 0x14, 0x5b, 0xd4, 0x82,
+	0xf8, 0x39, 0x90, 0xbb, 0x33, 0x2b, 0x61, 0x92, 0x61, 0xb6, 0xda, 0xcd, 0xdd, 0x77, 0x60, 0xca,
+	0xe2, 0x9f, 0x1e, 0xb4, 0x4d, 0xec, 0xe4, 0x21, 0xf4, 0xea, 0x85, 0xd4, 0x9a, 0xee, 0xca, 0x6e,
+	0x83, 0x8c, 0xa0, 0x5f, 0xf2, 0x7c, 0x51, 0x66, 0x85, 0x33, 0xe8, 0xd3, 0xa6, 0x26, 0xa7, 0xd0,
+	0x52, 0x78, 0x6b, 0x2d, 0x76, 0xa8, 0x79, 0x34, 0x49, 0x67, 0xeb, 0x4c, 0x67, 0x32, 0x5d, 0xc9,
+	0xad, 0x4b, 0xdf, 0x91, 0x1b, 0xb9, 0x34, 0xfe, 0xf1, 0x56, 0xcb, 0xac, 0x36, 0xe8, 0x0a, 0x63,
+	0x2c, 0x97, 0x98, 0x69, 0xdc, 0xdf, 0x1e, 0x38, 0x64, 0xf7, 0x77, 0x01, 0xc1, 0x4a, 0xb0, 0x46,
+	0xd0, 0x73, 0x02, 0x87, 0x8c, 0x20, 0xbe, 0x02, 0x78, 0xc3, 0x98, 0x31, 0x62, 0xd6, 0xf4, 0x18,
+	0xda, 0x66, 0x78, 0x6b, 0x24, 0x98, 0xf4, 0xcd, 0xbd, 0xb1, 0x2d, 0x4b, 0xe3, 0x01, 0x04, 0x8d,
+	0x56, 0x89, 0xf8, 0x12, 0xe0, 0x03, 0xea, 0xed, 0xab, 0xff, 0x8a, 0x21, 0x7e, 0x06, 0x41, 0x23,
+	0x53, 0xe2, 0xff, 0x47, 0x4c, 0x7e, 0x79, 0x10, 0x7c, 0xac, 0xe6, 0xbc, 0x7c, 0x67, 0xbf, 0x49,
+	0xf2, 0x1a, 0x86, 0x87, 0x8b, 0x21, 0xe7, 0xee, 0x1b, 0xba, 0x73, 0xc1, 0x46, 0x0f, 0xfe, 0x86,
+	0x95, 0x20, 0x57, 0xd0, 0xab, 0x67, 0x26, 0x43, 0x23, 0xd9, 0x99, 0x1d, 0x9d, 0x1c, 0xd4, 0x4e,
+	0x5b, 0x4f, 0xea, 0xb4, 0x3b, 0x77, 0x4e, 0xbb, 0x6f, 0xe3, 0x15, 0x04, 0x7b, 0x37, 0x9f, 0x10,
+	0xd3, 0x3f, 0xfc, 0x47, 0x8c, 0xee, 0xfd, 0xc1, 0x94, 0x98, 0x75, 0xed, 0x2f, 0xe5, 0xc5, 0xef,
+	0x00, 0x00, 0x00, 0xff, 0xff, 0x43, 0x1a, 0x3f, 0xce, 0x7b, 0x04, 0x00, 0x00,
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// LoginClientClient is the client API for LoginClient service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type LoginClientClient interface {
+	// 注册设备
+	RegisterDevice(ctx context.Context, in *RegisterDeviceReq, opts ...grpc.CallOption) (*RegisterDeviceResp, error)
+	// 添加用户
+	AddUser(ctx context.Context, in *AddUserReq, opts ...grpc.CallOption) (*AddUserResp, error)
+	// 获取用户信息
+	GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserResp, error)
+	// 发送消息
+	SendMessage(ctx context.Context, in *SendMessageReq, opts ...grpc.CallOption) (*SendMessageResp, error)
+}
+
+type loginClientClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewLoginClientClient(cc *grpc.ClientConn) LoginClientClient {
+	return &loginClientClient{cc}
+}
+
+func (c *loginClientClient) RegisterDevice(ctx context.Context, in *RegisterDeviceReq, opts ...grpc.CallOption) (*RegisterDeviceResp, error) {
+	out := new(RegisterDeviceResp)
+	err := c.cc.Invoke(ctx, "/pb.LoginClient/RegisterDevice", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *loginClientClient) AddUser(ctx context.Context, in *AddUserReq, opts ...grpc.CallOption) (*AddUserResp, error) {
+	out := new(AddUserResp)
+	err := c.cc.Invoke(ctx, "/pb.LoginClient/AddUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *loginClientClient) GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserResp, error) {
+	out := new(GetUserResp)
+	err := c.cc.Invoke(ctx, "/pb.LoginClient/GetUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *loginClientClient) SendMessage(ctx context.Context, in *SendMessageReq, opts ...grpc.CallOption) (*SendMessageResp, error) {
+	out := new(SendMessageResp)
+	err := c.cc.Invoke(ctx, "/pb.LoginClient/SendMessage", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// LoginClientServer is the server API for LoginClient service.
+type LoginClientServer interface {
+	// 注册设备
+	RegisterDevice(context.Context, *RegisterDeviceReq) (*RegisterDeviceResp, error)
+	// 添加用户
+	AddUser(context.Context, *AddUserReq) (*AddUserResp, error)
+	// 获取用户信息
+	GetUser(context.Context, *GetUserReq) (*GetUserResp, error)
+	// 发送消息
+	SendMessage(context.Context, *SendMessageReq) (*SendMessageResp, error)
+}
+
+// UnimplementedLoginClientServer can be embedded to have forward compatible implementations.
+type UnimplementedLoginClientServer struct {
+}
+
+func (*UnimplementedLoginClientServer) RegisterDevice(ctx context.Context, req *RegisterDeviceReq) (*RegisterDeviceResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisterDevice not implemented")
+}
+func (*UnimplementedLoginClientServer) AddUser(ctx context.Context, req *AddUserReq) (*AddUserResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddUser not implemented")
+}
+func (*UnimplementedLoginClientServer) GetUser(ctx context.Context, req *GetUserReq) (*GetUserResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
+}
+func (*UnimplementedLoginClientServer) SendMessage(ctx context.Context, req *SendMessageReq) (*SendMessageResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendMessage not implemented")
+}
+
+func RegisterLoginClientServer(s *grpc.Server, srv LoginClientServer) {
+	s.RegisterService(&_LoginClient_serviceDesc, srv)
+}
+
+func _LoginClient_RegisterDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterDeviceReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoginClientServer).RegisterDevice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.LoginClient/RegisterDevice",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoginClientServer).RegisterDevice(ctx, req.(*RegisterDeviceReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LoginClient_AddUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddUserReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoginClientServer).AddUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.LoginClient/AddUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoginClientServer).AddUser(ctx, req.(*AddUserReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LoginClient_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoginClientServer).GetUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.LoginClient/GetUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoginClientServer).GetUser(ctx, req.(*GetUserReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LoginClient_SendMessage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendMessageReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoginClientServer).SendMessage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.LoginClient/SendMessage",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoginClientServer).SendMessage(ctx, req.(*SendMessageReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _LoginClient_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "pb.LoginClient",
+	HandlerType: (*LoginClientServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "RegisterDevice",
+			Handler:    _LoginClient_RegisterDevice_Handler,
+		},
+		{
+			MethodName: "AddUser",
+			Handler:    _LoginClient_AddUser_Handler,
+		},
+		{
+			MethodName: "GetUser",
+			Handler:    _LoginClient_GetUser_Handler,
+		},
+		{
+			MethodName: "SendMessage",
+			Handler:    _LoginClient_SendMessage_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "logic.client.proto",
 }

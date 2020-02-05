@@ -1,0 +1,6 @@
+app:
+  logic:
+    rpcIntListenAddr: :50000
+    clientRpcExtListenAddr: :50001
+    serverRpcExtListenAddr: :50002
+    connRpcAddrs: 127.0.0.1:60001

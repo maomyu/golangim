@@ -1,19 +1,17 @@
 package main
 
-import "github.com/yuwe1/golangim/pkg/util"
-
-import "github.com/yuwe1/golangim/api/wsconn"
-
-import "github.com/yuwe1/golangim/pkg/rpc_cli"
-
-import "github.com/yuwe1/golangim/basic/config"
-
-import "github.com/yuwe1/golangim/internal/ws_conn"
-
-import "github.com/yuwe1/golangim/basic"
+import (
+	"github.com/yuwe1/golangim/api/wsconn"
+	"github.com/yuwe1/golangim/basic"
+	"github.com/yuwe1/golangim/basic/config"
+	"github.com/yuwe1/golangim/internal/ws_conn"
+	"github.com/yuwe1/golangim/pkg/rpc_cli"
+	"github.com/yuwe1/golangim/pkg/util"
+)
 
 func main() {
 	basic.Init()
+
 	go func() {
 		defer util.RecoverPanic()
 		wsconn.StartRPCServer()

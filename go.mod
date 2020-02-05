@@ -12,6 +12,7 @@ require (
 	github.com/micro/go-micro v1.18.0
 	github.com/micro/protobuf v0.0.0-20180321161605-ebd3be6d4fdb
 	github.com/streadway/amqp v0.0.0-20200108173154-1c71cc93ed71
+	github.com/yuwe1/recycle-shop v0.0.0-20200121084324-772153496faa
 	go.uber.org/zap v1.13.0
 	google.golang.org/grpc v1.27.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0

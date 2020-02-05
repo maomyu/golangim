@@ -1,14 +1,13 @@
 package logic
 
-import "context"
+import (
+	"context"
 
-import "github.com/yuwe1/golangim/pkg/pb"
-
-import "github.com/yuwe1/golangim/pkg/contextcli"
-
-import "github.com/yuwe1/golangim/internal/model"
-
-import "github.com/yuwe1/golangim/internal/inlogic/service"
+	"github.com/yuwe1/golangim/internal/inlogic/service"
+	"github.com/yuwe1/golangim/internal/model"
+	"github.com/yuwe1/golangim/pkg/contextcli"
+	"github.com/yuwe1/golangim/pkg/pb"
+)
 
 type LogicServerExt struct {
 }
@@ -23,5 +22,5 @@ func (*LogicServerExt) SendMessage(ctx context.Context, req *pb.SendMessageReq) 
 		AppId:      appId,
 		SenderType: pb.SenderType_ST_BUSINESS,
 	}
-	return &pb.SendMessageResp{}, service.MessageService.SendMessage(ctx, sender, *req)
+	return &pb.SendMessageResp{}, service.MessageService.SendMessage(ctx, sender, req)
 }

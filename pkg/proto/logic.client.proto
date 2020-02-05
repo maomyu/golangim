@@ -14,3 +14,47 @@ message SendMessageReq {
 message SendMessageResp {
 
 }
+message RegisterDeviceReq {
+    int64 app_id = 1; // app_id
+    int32 type = 2; // 设备类型
+    string brand = 3; // 厂商
+    string model = 4; // 机型
+    string system_version = 5; // 系统版本
+    string sdk_version = 6; // sdk版本号
+}
+message RegisterDeviceResp {
+    int64 device_id = 1; // 设备id
+}
+message User {
+    int64 user_id = 1; // 用户id
+    string nickname = 2; // 昵称
+    int32 sex = 3; // 性别
+    string avatar_url = 4; // 头像地址
+    string extra = 5; // 附加字段
+    int64 create_time = 6; // 创建时间
+    int64 update_time = 7; // 更新时间
+}
+
+message AddUserReq {
+    User user = 1; // 用户信息
+}
+message AddUserResp {
+}
+
+message GetUserReq {
+    int64 user_id = 1; // 用户id
+}
+message GetUserResp {
+    User user = 1; // 用户信息
+}
+
+service LoginClient {
+    // 注册设备
+    rpc RegisterDevice (RegisterDeviceReq) returns (RegisterDeviceResp);
+    // 添加用户
+    rpc AddUser (AddUserReq) returns (AddUserResp);
+    // 获取用户信息
+    rpc GetUser (GetUserReq) returns (GetUserResp);
+    // 发送消息
+    rpc SendMessage (SendMessageReq) returns (SendMessageResp);
+}

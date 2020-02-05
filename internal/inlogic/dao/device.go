@@ -67,3 +67,25 @@ func (*deviceDao) ListOnlineByUserId(appId, userId int64) ([]model.Device, error
 	}
 	return devices, nil
 }
+
+func (*deviceDao)(d model.Device)error{
+	s, err, p, c := dbpool.GetSession()
+	defer func() {
+		if s != nil {
+			s.Relase(p, c)
+		}
+		if err != nil {
+			logger.Sugar.Error(err)
+		}
+	}()
+	s.Begin()
+	insert :="insert into device(device_id,app_id,type,brand,model,system_version,sdk_version,status,conn_addr) values(?,?,?,?,?,?,?,?,?)"
+	err = s.Exec(insert,d.DeviceId,
+		d.AppId,d.Type,d.Brand,d.Model,d.SystemVersion,
+		d.sdk_version,d.Status,""
+	)
+	if err !=nil{
+		return fmt.Errorf("%w",err)
+	}
+	return nil
+}

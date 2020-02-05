@@ -1,12 +1,12 @@
 package rpc_cli
 
-import "github.com/yuwe1/golangim/pkg/pb"
+import (
+	"context"
 
-import "google.golang.org/grpc"
-
-import "context"
-
-import "github.com/yuwe1/golangim/pkg/logger"
+	"github.com/yuwe1/golangim/pkg/logger"
+	"github.com/yuwe1/golangim/pkg/pb"
+	"google.golang.org/grpc"
+)
 
 // 定义rpc客户端
 var (
