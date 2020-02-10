@@ -4,11 +4,13 @@ import (
 	"database/sql"
 
 	"github.com/yuwe1/golangim/pkg/logger"
+	"github.com/yuwe1/golangim/pkg/util/sqlid"
+)
 )
 
 var (
-	MessageBodyIdUid *uid.Uid
-	DeviceIdUid      *uid.Uid
+	MessageBodyIdUid *sqlid.Uid
+	DeviceIdUid      *sqlid.Uid
 )
 
 const (
